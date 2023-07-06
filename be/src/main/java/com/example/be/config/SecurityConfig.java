@@ -1,23 +1,26 @@
 package com.example.be.config;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableMethodSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable(); // Tắt CSRF protection và bật CORS
 
-        // Cấu hình các rule phù hợp với ứng dụng của bạn
-        http.authorizeRequests()
-              .antMatchers("/api/public").permitAll() // Cho phép truy cập vào các endpoint public
-              .antMatchers("/api/private").authenticated(); // Yêu cầu xác thực cho các endpoint private
-
-        // Cấu hình xác thực bằng JWT (hoặc các phương pháp xác thực khác)
-        // Đảm bảo rằng bạn có một bean để xử lý xác thực (ví dụ: UserDetailsService, AuthenticationProvider)
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("/api/**").permitAll()
+                .anyRequest().authenticated()
+                .and().build();
     }
 }
