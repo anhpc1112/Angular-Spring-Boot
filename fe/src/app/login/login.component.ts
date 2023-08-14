@@ -37,12 +37,26 @@ export class LoginComponent {
   }
 
   onSignIn() {
+    const credentials = {
+      username: this.username,
+      password: this.password,
+    };
+    const validForm = this.loginForm.valid;
+    console.log('form: ', validForm);
     if (this.loginForm.valid) {
-      const credentials = {
-        username: this.username,
-        password: this.password,
-      };
-
+      this.http
+        .post<any>('http://localhost:8080/api/login', credentials)
+        .subscribe(
+          (response) => {
+            // Xử lý thành công đăng nhập
+            this.router.navigateByUrl('/home');
+          },
+          (error) => {
+            // Xử lý lỗi đăng nhập
+            console.error(error);
+          }
+        );
+    } else {
       this.http
         .post<any>('http://localhost:8080/api/login', credentials)
         .subscribe(
