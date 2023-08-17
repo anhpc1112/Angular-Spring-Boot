@@ -1,4 +1,4 @@
-package com.example.be;
+package com.example.be.exeption;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorResponse {
+public class ValidationErrorResponse {
     private HttpStatus httpStatus;
     private String error;
     private String message;

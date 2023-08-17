@@ -4,6 +4,7 @@ import com.example.be.auth.request.SignInRequest;
 import com.example.be.auth.request.SignUpRequest;
 import com.example.be.auth.response.JwtAuthenticationResponse;
 import com.example.be.auth.service.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-@Validated
+//@Validated
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
@@ -25,7 +26,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody SignUpRequest request){
+    public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody @Valid SignUpRequest request){
         return ResponseEntity.ok(authenticationService.signUp(request));
     }
 
