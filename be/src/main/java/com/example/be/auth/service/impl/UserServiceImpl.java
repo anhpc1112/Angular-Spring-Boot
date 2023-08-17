@@ -1,7 +1,7 @@
-package com.example.be.login.service.impl;
+package com.example.be.auth.service.impl;
 
-import com.example.be.login.repository.UserRepository;
-import com.example.be.login.service.UserService;
+import com.example.be.auth.repository.UserRepository;
+import com.example.be.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

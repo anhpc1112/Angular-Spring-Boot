@@ -1,4 +1,4 @@
-package com.example.be.exeption;
+package com.example.be.exeption.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

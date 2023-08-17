@@ -1,4 +1,4 @@
-package com.example.be.login.entity;
+package com.example.be.auth.entity;
 
 import com.example.be.enums.Role;
 import jakarta.persistence.*;

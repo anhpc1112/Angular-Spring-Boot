@@ -1,6 +1,6 @@
-package com.example.be.login.repository;
+package com.example.be.auth.repository;
 
-import com.example.be.login.entity.User;
+import com.example.be.auth.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
