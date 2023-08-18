@@ -14,6 +14,6 @@ public class SignUpRequest {
     private String firstName;
     private String lastName;
     private String email;
-    @PasswordValidation(message = "{response.message.validation.password}")
+//    @PasswordValidation(message = "{response.message.validation.password}")
     private String password;
 }

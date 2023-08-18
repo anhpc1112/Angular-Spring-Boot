@@ -1,15 +1,28 @@
 package com.example.be.exeption.response;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 public class ValidationErrorResponse {
-    private HttpStatus httpStatus;
-    private String error;
-    private String message;
+    @JsonProperty("result")
+    private final String result;
+    @JsonProperty("validationErrors")
+    private final ValidationErrors validationErrors;
+
+    @Getter
+    @Builder
+    @EqualsAndHashCode
+    public static class ValidationErrors {
+        @JsonProperty("name")
+        private final String name;
+        @JsonProperty("messages")
+        private final List<String> messages;
+    }
 }

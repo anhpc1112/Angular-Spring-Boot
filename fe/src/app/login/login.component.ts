@@ -38,7 +38,7 @@ export class LoginComponent {
 
   onSignIn() {
     const credentials = {
-      username: this.username,
+      email: this.username,
       password: this.password,
     };
     const validForm = this.loginForm.valid;
@@ -58,7 +58,7 @@ export class LoginComponent {
         );
     } else {
       this.http
-        .post<any>('http://localhost:8080/api/login', credentials)
+        .post<any>('http://localhost:8080/api/v1/auth/sign-in', credentials)
         .subscribe(
           (response) => {
             // Xử lý thành công đăng nhập

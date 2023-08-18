@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignInRequest {
     private String email;
-    @PasswordValidation(message = "{response.message.validation.password}")
+//    @PasswordValidation(message = "{response.message.validation.password}")
     private String password;
 }
