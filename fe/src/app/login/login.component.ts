@@ -5,6 +5,7 @@ import { FORM_LOGIN_VALIDATORS } from './Form-Validators';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { TokenService } from '../token.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,11 @@ export class LoginComponent {
   lastName: string = '';
   email: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private tokenService: TokenService
+  ) {
     this.loginForm = new FormGroup({});
     // this.loginForm = new FormGroup({
     //   username: new FormControl(this.username, [
@@ -50,11 +55,13 @@ export class LoginComponent {
     console.log('form: ', validForm);
     if (this.loginForm.valid) {
       this.http
-        .post<any>('http://localhost:8080/api/v1/auth/sign-in', credentials)
+        .post<any>('https://localhost:443/api/v1/auth/sign-in', credentials)
         .subscribe(
           (response) => {
             // Xử lý thành công đăng nhập
             this.router.navigateByUrl('/home');
+            console.log('Token back: ' + response.token);
+            this.tokenService.setToken(response.token);
           },
           (error) => {
             // Xử lý lỗi đăng nhập
@@ -63,11 +70,13 @@ export class LoginComponent {
         );
     } else {
       this.http
-        .post<any>('http://localhost:8080/api/v1/auth/sign-in', credentials)
+        .post<any>('https://localhost:443/api/v1/auth/sign-in', credentials)
         .subscribe(
           (response) => {
             // Xử lý thành công đăng nhập
             this.router.navigateByUrl('/home');
+            console.log('Token back: ' + response.token);
+            this.tokenService.setToken(response.token);
           },
           (error) => {
             // Xử lý lỗi đăng nhập
