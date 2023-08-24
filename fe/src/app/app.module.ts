@@ -14,6 +14,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { TokenInterceptor } from './token.interceptor';
 import { TokenService } from './token.service';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TokenService } from './token.service';
     HeaderComponent,
     ErrorComponent,
     HomeComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

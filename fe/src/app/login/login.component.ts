@@ -55,7 +55,7 @@ export class LoginComponent {
     console.log('form: ', validForm);
     if (this.loginForm.valid) {
       this.http
-        .post<any>('https://localhost:443/api/v1/auth/sign-in', credentials)
+        .post<any>('http://localhost:443/api/v1/auth/sign-in', credentials)
         .subscribe(
           (response) => {
             // Xử lý thành công đăng nhập
@@ -70,7 +70,7 @@ export class LoginComponent {
         );
     } else {
       this.http
-        .post<any>('https://localhost:443/api/v1/auth/sign-in', credentials)
+        .post<any>('http://localhost:443/api/v1/auth/sign-in', credentials)
         .subscribe(
           (response) => {
             // Xử lý thành công đăng nhập
@@ -97,10 +97,11 @@ export class LoginComponent {
     console.log('data: ', credentials);
     // this.delay(20000).subscribe(() => {
     this.http
-      .post<any>('http://localhost:8080/api/v1/auth/sign-up', credentials)
+      .post<any>('http://localhost:443/api/v1/auth/sign-up', credentials)
       .subscribe(
         (response) => {
           // Xử lý thành công đăng nhập
+          console.log('sucess: ' + response);
           this.router.navigateByUrl('/home');
         },
         (error) => {
@@ -121,14 +122,5 @@ export class LoginComponent {
 
   get getUsername() {
     return this.loginForm.get('username');
-  }
-
-  private delay(ms: number): Observable<number> {
-    return new Observable((observer) => {
-      setTimeout(() => {
-        observer.next(ms);
-        observer.complete();
-      }, ms);
-    });
   }
 }

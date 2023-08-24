@@ -17,7 +17,7 @@ server:
   servlet:
     context-path: /api/v1
   ssl:
-    enabled: true
+    enabled: false
     key-alias: local_ssl
     key-store: classpath:local-ssl.p12
     key-store-type: PKCS12
