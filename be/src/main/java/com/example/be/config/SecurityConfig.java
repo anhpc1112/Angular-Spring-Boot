@@ -35,8 +35,12 @@ public class SecurityConfig {
 //                .anyRequest().authenticated()
 //                .and().build();
         http.csrf().disable()
-                .authorizeHttpRequests(request -> request.requestMatchers("/auth/**")
-                        .permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(request -> {
+//                    request.requestMatchers("/auth/**", "/ws/**", "/app/**")
+                    request.requestMatchers("/**")
+                            .permitAll().anyRequest().authenticated();
+//                    request.anyRequest().permitAll();
+                })
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

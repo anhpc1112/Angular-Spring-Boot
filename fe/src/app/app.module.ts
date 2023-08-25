@@ -15,6 +15,7 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { TokenInterceptor } from './token.interceptor';
 import { TokenService } from './token.service';
 import { ChatComponent } from './chat/chat.component';
+import { RxStompService } from '@stomp/ng2-stompjs';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ChatComponent } from './chat/chat.component';
       multi: true,
     },
     TokenService,
+    RxStompService,
   ],
   bootstrap: [AppComponent],
 })
