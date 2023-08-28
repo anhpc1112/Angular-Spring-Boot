@@ -7,8 +7,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Controller
+@CrossOrigin("http://localhost:4200/chat")
 public class ChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
@@ -17,6 +19,7 @@ public class ChatController {
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         logger.debug("Received WebSocket message: {}", chatMessage.getContent());
+        System.out.println(String.format("Received WebSocket message: {%s}", chatMessage.getContent()));
         return chatMessage;
     }
 }

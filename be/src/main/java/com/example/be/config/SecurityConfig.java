@@ -36,8 +36,8 @@ public class SecurityConfig {
 //                .and().build();
         http.csrf().disable()
                 .authorizeHttpRequests(request -> {
-//                    request.requestMatchers("/auth/**", "/ws/**", "/app/**")
-                    request.requestMatchers("/**")
+                    request.requestMatchers("/auth/**", "/ws/**", "/app/**")
+//                    request.requestMatchers("/**")
                             .permitAll().anyRequest().authenticated();
 //                    request.anyRequest().permitAll();
                 })
