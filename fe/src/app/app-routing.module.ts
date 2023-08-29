@@ -30,6 +30,10 @@ const routes: Routes = [
     component: NavComponent,
     outlet: 'navbar',
   }, // Use your navigation component for the navbar outlet
+  {
+    path: 'nav',
+    component: NavComponent,
+  },
 ];
 
 @NgModule({

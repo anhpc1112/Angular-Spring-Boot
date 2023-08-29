@@ -17,7 +17,6 @@ import { rxStompServiceFactory } from './rx-stomp-service-factory';
 import { RxStompService } from './rx-stomp.service';
 import { NavComponent } from './nav/nav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { UserMenuComponent } from './nav/user-menu/user-menu.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { UserMenuComponent } from './nav/user-menu/user-menu.component';
     HomeComponent,
     ChatComponent,
     NavComponent,
-    UserMenuComponent,
   ],
   imports: [
     BrowserModule,
