@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from './header/header.component';
 import { ErrorInterceptor } from './error.interceptor';
 import { ErrorComponent } from './error/error.component';
 import { HomeComponent } from './home/home.component';
@@ -17,15 +15,19 @@ import { TokenService } from './token.service';
 import { ChatComponent } from './chat/chat.component';
 import { rxStompServiceFactory } from './rx-stomp-service-factory';
 import { RxStompService } from './rx-stomp.service';
+import { NavComponent } from './nav/nav.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserMenuComponent } from './nav/user-menu/user-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HeaderComponent,
     ErrorComponent,
     HomeComponent,
     ChatComponent,
+    NavComponent,
+    UserMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { RxStompService } from './rx-stomp.service';
     FormsModule,
     FormlyModule.forRoot(),
     FormlyBootstrapModule,
+    FontAwesomeModule,
   ],
   providers: [
     {

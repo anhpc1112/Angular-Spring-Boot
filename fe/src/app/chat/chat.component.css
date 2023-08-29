@@ -1,6 +1,4 @@
-* {
-  box-sizing: border-box;
-}
+@import url("../../styles.css");
 
 body {
   background-color: #abd9e9;
