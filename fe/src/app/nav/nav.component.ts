@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { faFacebookMessenger } from '@fortawesome/free-brands-svg-icons';
 import {
-  faHouse,
-  faTv,
-  faStore,
-  faUsers,
-  faListUl,
   faBell,
+  faHouse,
+  faListUl,
   faMoon,
+  faStore,
+  faTv,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

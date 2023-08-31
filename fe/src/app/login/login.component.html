@@ -3,8 +3,9 @@
   id="container"
   [ngClass]="{ 'right-panel-active': isSignUpClicked }"
 >
+  <!-- Sign-Up Form -->
   <div class="form-container sign-up-container">
-    <form action="#">
+    <form [formGroup]="signUpForm">
       <h1>Create Account</h1>
       <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -16,41 +17,60 @@
         placeholder="First Name"
         id="firstName"
         name="firstName"
-        [(ngModel)]="firstName"
+        formControlName="firstName"
       />
+      <div
+        class="error-message"
+        *ngIf="submittedSignUp && signUpForm.controls['firstName'].errors?.['required']"
+      >
+        <span>First Name is required</span>
+      </div>
       <input
         type="text"
         placeholder="Last Name"
         id="lastName"
         name="lastName"
-        [(ngModel)]="lastName"
-      />
-      <input
-        type="text"
-        placeholder="Email"
-        id="email"
-        name="email"
-        [(ngModel)]="email"
+        formControlName="lastName"
       />
       <div
         class="error-message"
-        *ngIf="loginForm.invalid && (loginForm.dirty || loginForm.touched)"
+        *ngIf="submittedSignUp && signUpForm.controls['lastName'].errors?.['required']"
       >
-        <span>Username is required</span>
+        <span>Last Name is required</span>
       </div>
       <input
-        [(ngModel)]="password"
+        type="text"
+        placeholder="Email"
+        id="emailSignUp"
+        name="emailSignUp"
+        formControlName="emailSignUp"
+      />
+      <div
+        class="error-message"
+        *ngIf="submittedSignUp && signUpForm.controls['emailSignUp'].errors?.['required']"
+      >
+        <span>Email is required</span>
+      </div>
+      <input
+        formControlName="passwordSignUp"
         type="password"
         placeholder="Password"
-        id="passwordUp"
-        name="password"
-        [(ngModel)]="password"
+        id="passwordSignUp"
+        name="passwordSignUp"
       />
-      <button (click)="onSignUp()">Sign Up</button>
+      <div
+        class="error-message"
+        *ngIf="submittedSignUp && signUpForm.controls['passwordSignUp'].errors?.['required']"
+      >
+        <span>Password is required</span>
+      </div>
+      <button type="submit" (click)="onSignUp()">Sign Up</button>
     </form>
   </div>
+
+  <!-- Sign-In Form -->
   <div class="form-container sign-in-container">
-    <form action="#">
+    <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
       <!-- <formly-form [form]="loginForm" [fields]="formLoginConfig"></formly-form> -->
       <h1>Sign in</h1>
       <div class="social-container">
@@ -60,29 +80,36 @@
       <span>or use your account</span>
       <input
         type="text"
-        placeholder="Username"
-        id="username"
-        name="username"
-        [(ngModel)]="username"
+        placeholder="Email"
+        id="emailSignIn"
+        name="emailSignIn"
+        formControlName="emailSignIn"
       />
       <div
         class="error-message"
-        *ngIf="loginForm.invalid && (loginForm.dirty || loginForm.touched)"
+        *ngIf="submittedSignIn && signInForm.controls['emailSignIn'].errors?.['required']"
       >
         <span>Username is required</span>
       </div>
       <input
-        [(ngModel)]="password"
         type="password"
         placeholder="Password"
         id="passwordIn"
         name="password"
-        [(ngModel)]="password"
+        formControlName="passwordSignIn"
       />
+      <div
+        class="error-message"
+        *ngIf="submittedSignIn && signInForm.controls['passwordSignIn'].errors?.['required']"
+      >
+        <span>Password is required</span>
+      </div>
       <a href="#">Forgot your password?</a>
-      <button (click)="onSignIn()">Sign In</button>
+      <button type="submit">Sign In</button>
     </form>
   </div>
+
+  <!-- On-Change Form -->
   <div class="overlay-container">
     <div class="overlay">
       <div class="overlay-panel overlay-left">

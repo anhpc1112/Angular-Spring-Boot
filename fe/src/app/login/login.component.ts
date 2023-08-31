@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FORM_LOGIN_VALIDATORS } from './Form-Validators';
-import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { TokenService } from '../token.service';
+import { UserSignIn, UserSignUp } from './User';
 
 @Component({
   selector: 'app-login',
@@ -13,64 +11,60 @@ import { TokenService } from '../token.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  emailSignIn: string = '';
+  passwordSignIn: string = '';
   isSignUpClicked: boolean = false;
-  formLoginConfig: FormlyFieldConfig[] = FORM_LOGIN_VALIDATORS;
-  loginForm: FormGroup;
+
+  signInForm: FormGroup;
+  signUpForm: FormGroup;
 
   firstName: string = '';
   lastName: string = '';
-  email: string = '';
+  emailSignUp: string = '';
+  passwordSignUp: string = '';
+
+  submittedSignIn: boolean = false;
+  submittedSignUp: boolean = false;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private tokenService: TokenService
   ) {
-    this.loginForm = new FormGroup({});
-    // this.loginForm = new FormGroup({
-    //   username: new FormControl(this.username, [
-    //     Validators.required,
-    //     Validators.minLength(4),
-    //   ]),
-    // });
+    this.signInForm = new FormGroup({});
+    this.signUpForm = new FormGroup({});
   }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      username: new FormControl(this.username, [
+    this.signInForm = new FormGroup({
+      emailSignIn: new FormControl(this.emailSignIn, [Validators.required]),
+      passwordSignIn: new FormControl(this.passwordSignIn, [
         Validators.required,
-        Validators.minLength(4),
       ]),
+    });
+
+    this.signUpForm = new FormGroup({
+      emailSignUp: new FormControl(this.emailSignUp, [
+        Validators.required,
+        Validators.email,
+      ]),
+      passwordSignUp: new FormControl(this.passwordSignUp, [
+        Validators.required,
+      ]),
+      firstName: new FormControl(this.firstName, [Validators.required]),
+      lastName: new FormControl(this.lastName, [Validators.required]),
     });
   }
 
   onSignIn() {
-    const credentials = {
-      email: this.username,
-      password: this.password,
+    this.submittedSignIn = true;
+    const credentials: UserSignIn = {
+      email: this.signInForm.controls['emailSignIn'].value,
+      password: this.signInForm.controls['passwordSignIn'].value,
     };
-    const validForm = this.loginForm.valid;
-    console.log('form: ', validForm);
-    if (this.loginForm.valid) {
+    if (this.signInForm.valid) {
       this.http
-        .post<any>('http://localhost:443/api/v1/auth/sign-in', credentials)
-        .subscribe(
-          (response) => {
-            // Xử lý thành công đăng nhập
-            this.router.navigateByUrl('/home');
-            console.log('Token back: ' + response.token);
-            this.tokenService.setToken(response.token);
-          },
-          (error) => {
-            // Xử lý lỗi đăng nhập
-            console.error(error);
-          }
-        );
-    } else {
-      this.http
-        .post<any>('http://localhost:443/api/v1/auth/sign-in', credentials)
+        .post<any>('http://localhost:8081/api/v1/auth/sign-in', credentials)
         .subscribe(
           (response) => {
             // Xử lý thành công đăng nhập
@@ -87,29 +81,31 @@ export class LoginComponent {
   }
 
   onSignUp() {
-    // this.isSignUpClicked = true;
-    const credentials = {
-      email: this.email,
-      password: this.password,
-      firstName: this.firstName,
-      lastName: this.lastName,
+    this.submittedSignUp = true;
+    const credentials: UserSignUp = {
+      email: this.signUpForm.controls['emailSignUp'].value,
+      password: this.signUpForm.controls['passwordSignUp'].value,
+      firstName: this.signUpForm.controls['firstName'].value,
+      lastName: this.signUpForm.controls['lastName'].value,
     };
     console.log('data: ', credentials);
-    // this.delay(20000).subscribe(() => {
-    this.http
-      .post<any>('http://localhost:443/api/v1/auth/sign-up', credentials)
-      .subscribe(
-        (response) => {
-          // Xử lý thành công đăng nhập
-          console.log('sucess: ' + response);
-          this.router.navigateByUrl('/home');
-        },
-        (error) => {
-          // Xử lý lỗi đăng nhập
-          console.error(error);
-        }
-      );
-    // });
+
+    if (this.signUpForm.valid) {
+      this.http
+        .post<any>('http://localhost:8081/api/v1/auth/sign-up', credentials)
+        .subscribe(
+          (response) => {
+            // Xử lý thành công đăng nhập
+            console.log('sucess: ' + response);
+            this.isSignUpClicked = false;
+            this.router.navigateByUrl('/login');
+          },
+          (error) => {
+            // Xử lý lỗi đăng nhập
+            console.error(error);
+          }
+        );
+    }
   }
 
   backSignInPage() {
@@ -118,9 +114,5 @@ export class LoginComponent {
 
   onChangeSignUp() {
     this.isSignUpClicked = true;
-  }
-
-  get getUsername() {
-    return this.loginForm.get('username');
   }
 }

@@ -11,7 +11,6 @@ import java.util.List;
 public class BusinessErrorResponse {
     @JsonProperty("result")
     private final String result;
-
     @JsonProperty("errorMessages")
     private final List<String> errorMessages;
 }
