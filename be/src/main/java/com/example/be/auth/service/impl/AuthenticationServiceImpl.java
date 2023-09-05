@@ -50,8 +50,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .roles(roles)
                 .build();
         userRepository.save(user);
-        var jwt = jwtService.generateToken(user);
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwt.toString()).body(signUpRequest);
+//        var jwt = jwtService.generateToken(user);
+        return ResponseEntity.ok().body("User registered successfully!");
     }
 
     @Override
@@ -62,6 +62,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var user = userRepository.findByEmail(signInRequest.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
         var jwt = jwtService.generateToken(user);
+        System.out.println("token: " + jwt);
 //        return JwtAuthenticationResponse.builder().token(jwt).build();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwt.toString()).body(signInRequest);
     }
