@@ -1,6 +1,6 @@
 package com.example.be.enums;
 
 public enum ERole {
-    ADMIN,
-    USER
+    ROLE_ADMIN,
+    ROLE_USER
 }

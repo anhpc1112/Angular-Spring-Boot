@@ -37,7 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public ResponseEntity<?> signUp(SignUpRequest signUpRequest) {
         validRequest(signUpRequest);
-        Role userRole = roleRepository.findByName(ERole.USER)
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
